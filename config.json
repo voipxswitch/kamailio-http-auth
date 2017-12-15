@@ -1,0 +1,4 @@
+{
+	"listen_address": "localhost:8000",
+	"user_file": "users.json"
+}

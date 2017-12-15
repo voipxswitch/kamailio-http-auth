@@ -1,0 +1,13 @@
+{
+	"users": {
+		"user1000@voipxswitch.local": {
+			"password": "pass1010"
+		},
+		"user2000@voipxswitch.local": {
+			"password": "pass1010"
+		},
+		"user2000@voipxswitch.local": {
+			"password": "pass1010"
+		}
+	}
+}

@@ -57,7 +57,6 @@ func main() {
 	http.New(listenAddress, goji.NewMux())
 }
 
-
 // struct used to unmarshal config.json
 type serviceConfig struct {
 	ListenAddress string `json:"listen_address"`

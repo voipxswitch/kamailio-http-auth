@@ -16,26 +16,22 @@ const (
 	userEndpoint = "/user/:realm/:username"
 )
 
-var (
-	h httpHandler
-)
-
-type httpHandler struct {}
+type httpHandler struct{}
 
 func New(httpAddress string, root *goji.Mux) {
 	v := goji.SubMux()
 	root.Handle(pat.New(requestPath), v)
 	rlog.Debugf("registered http handler [%s]", requestPath)
-	registerMux(v)
+	h := httpHandler{}
+	registerMux(v, h)
 	http.ListenAndServe(httpAddress, root)
 }
 
-func registerMux(v *goji.Mux) {
+func registerMux(v *goji.Mux, h httpHandler) {
 	rlog.Debugf("registered user endpoint [%s]", userEndpoint)
 	v.HandleFunc(pat.Get(userEndpoint), h.userHandler)
 }
 
-// accepts input for devices
 func (h *httpHandler) userHandler(w http.ResponseWriter, r *http.Request) {
 	realm := pat.Param(r, "realm")
 	username := pat.Param(r, "username")
@@ -56,8 +52,6 @@ func (h *httpHandler) userHandler(w http.ResponseWriter, r *http.Request) {
 		d.Status = "failure"
 	}
 	d.Password = password
-
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(d)
-	return
 }
